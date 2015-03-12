@@ -7,6 +7,7 @@ public class BallServer {
 	
 	public static void main(String[] args) {
 		try{
+			
 		      BallRoom  b = new BallRoom();
 		      
 		      // This server runs the registry on port 8080

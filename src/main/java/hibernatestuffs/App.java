@@ -8,6 +8,7 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 import persistence.*;
+import server.Sprite;
 
 import java.awt.Color;
 import java.util.List;
@@ -27,13 +28,13 @@ public class App
         System.out.println( "Hello World!" );
         Session session = HibernateUtils.buildSessionFactory().openSession();
         session.beginTransaction();
-        PersistentSprite sprite = new PersistentSprite(Color.RED, 1, 2);
+        Sprite sprite = new Sprite(2, 1, Color.RED);
         session.save(sprite);
-        session.save(new PersistentSprite(Color.BLUE, 1, 2));
+        session.save(new Sprite(2, 1, Color.BLUE));
         session.getTransaction().commit();
         
-        Query q = session.createQuery("From PersistentSprite");
-        List<PersistentSprite> list = q.list();
+        Query q = session.createQuery("From Sprite");
+        List<Sprite> list = q.list();
         System.out.println("Number of sprites:" + list.size());
     }
 }

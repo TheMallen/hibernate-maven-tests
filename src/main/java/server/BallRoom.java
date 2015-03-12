@@ -9,19 +9,19 @@ import java.util.Random;
 public class BallRoom extends UnicastRemoteObject implements BallSession {
 
 	private final int SIZE;
-	private ArrayList<Ball> ballz;
+	private ArrayList<Sprite> ballz;
 	
 	protected BallRoom() throws RemoteException {
 		this(400);
 	}
 	protected BallRoom(int size) throws RemoteException {
 	    super();
-	    ballz = new ArrayList<Ball>();
+	    ballz = new ArrayList<Sprite>();
 	    SIZE = size;
 	}
 
 	public void move() {
-		for(Ball ball:ballz){
+		for(Sprite ball:ballz){
 			try {
 				ball.move(getSize());
 			} catch (RemoteException e) {
@@ -49,11 +49,11 @@ public class BallRoom extends UnicastRemoteObject implements BallSession {
 	}
 	
 	public void newSprite(int x, int y, Color c) throws RemoteException {
-		Ball ball = new Ball(x,y,c);
+		Sprite ball = new Sprite(x,y,c);
 		ballz.add(ball);
 	}
 
-	public ArrayList<Ball> getList() throws RemoteException {
+	public ArrayList<Sprite> getList() throws RemoteException {
 		return ballz;
 	}
 

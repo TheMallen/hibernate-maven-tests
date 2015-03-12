@@ -2,7 +2,7 @@ package client;
 
 import javax.swing.JPanel;
 
-import server.Ball;
+import server.Sprite;
 import server.BallSession;
 
 import java.awt.Color;
@@ -16,7 +16,7 @@ import java.util.Random;
 public class BallPanel extends JPanel {
 
 	BallSession pit;
-	ArrayList<Ball> balls;
+	ArrayList<Sprite> balls;
 	private Color color;
 	
 	public BallPanel(BallSession pit){
@@ -55,7 +55,7 @@ public class BallPanel extends JPanel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		if (balls != null){
-			for(Ball ball : balls){
+			for(Sprite ball : balls){
 				ball.draw(g);
 			}
 		}
