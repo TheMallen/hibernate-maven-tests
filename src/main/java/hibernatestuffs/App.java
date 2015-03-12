@@ -1,13 +1,13 @@
 package hibernatestuffs;
 
-import hibernatestuffs.domain.*;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
+
+import persistence.*;
 
 import java.awt.Color;
 import java.util.List;
@@ -25,7 +25,7 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-        Session session = buildSessionFactory().openSession();
+        Session session = HibernateUtils.buildSessionFactory().openSession();
         session.beginTransaction();
         PersistentSprite sprite = new PersistentSprite(Color.RED, 1, 2);
         session.save(sprite);
@@ -36,13 +36,4 @@ public class App
         List<PersistentSprite> list = q.list();
         System.out.println("Number of sprites:" + list.size());
     }
-    
-    private static SessionFactory buildSessionFactory(){
-    		Configuration config = new Configuration()
-    									.configure();
-    		serviceRegistry = new ServiceRegistryBuilder()
-    								.applySettings(config.getProperties())
-    								.buildServiceRegistry();
-    		return config.buildSessionFactory(serviceRegistry);
-   }
 }

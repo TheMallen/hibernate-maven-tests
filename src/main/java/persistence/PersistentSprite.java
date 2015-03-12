@@ -1,4 +1,4 @@
-package hibernatestuffs.domain;
+package persistence;
 import java.awt.Color;
 
 import javax.persistence.*;
@@ -10,13 +10,13 @@ public class PersistentSprite {
 	@GeneratedValue
 	private Long id;
 	
-	private Integer x;
+	private int x;
 	
-	private Integer y;
+	private int y;
 	
-	private Integer colorR;
-	private Integer colorG;
-	private Integer colorB;
+	private int colorR;
+	private int colorG;
+	private int colorB;
 	
 	public PersistentSprite() {}
 	
@@ -34,43 +34,43 @@ public class PersistentSprite {
 		this.id = id;
 	}
 	
-	public Integer getX() {
+	public int getX() {
 		return x;
 	}
 
-	public void setX(Integer x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public Integer getColorR() {
+	public int getColorR() {
 		return colorR;
 	}
 
-	public void setColorR(Integer colorR) {
+	public void setColorR(int colorR) {
 		this.colorR = colorR;
 	}
 	
-	public Integer getColorG() {
+	public int getColorG() {
 		return colorG;
 	}
 
-	public void setColorG(Integer colorG) {
+	public void setColorG(int colorG) {
 		this.colorG = colorG;
 	}
 	
-	public Integer getColorB() {
+	public int getColorB() {
 		return colorB;
 	}
 
-	public void setColorB(Integer colorB) {
+	public void setColorB(int colorB) {
 		this.colorB = colorB;
 	}
 	
-	public Integer getY() {
+	public int getY() {
 		return y;
 	}
 
-	public void setY(Integer y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 
