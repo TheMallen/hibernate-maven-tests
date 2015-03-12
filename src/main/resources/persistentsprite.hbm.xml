@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+ 
+    <class name="hibernatestuffs.domain.PersistentSprite" table="persistent_sprite">
+        <id name="id" column="id">
+            <generator class="native">
+        	</generator>
+        </id>
+        <property name="colorR" column="color_r" type="int"/>
+        <property name="colorG" column="color_g" type="int"/>
+        <property name="colorB" column="color_b"  type="int"/>
+        
+        <property name="x" column="x" type="int"/>
+        <property name="y" column="y" type="int"/>
+        
+    </class>
+ 
+</hibernate-mapping>
