@@ -11,10 +11,12 @@ import javax.persistence.Id;
 
 @Entity
 public class Sprite implements Serializable{
-	public final static Random ranSpeed = new Random();
+	public final static Random random = new Random();
 	
 	final static int SIZE = 10;
 	final static int MAX_SPEED = 5;
+	final static int MAX_START_X = 100;
+	final static int MAX_START_Y = 100;
 	
 	@Id
 	@GeneratedValue
@@ -26,12 +28,21 @@ public class Sprite implements Serializable{
 	private int dy;
 	private Color color; 
 
+	public Sprite()
+	{
+		this.x = random.nextInt(MAX_START_X);
+		this.y = random.nextInt(MAX_START_Y);
+		this.dx = random.nextInt(2*MAX_SPEED) - MAX_SPEED;
+		this.dy = random.nextInt(2*MAX_SPEED) - MAX_SPEED;
+		this.color = new Color(random.nextInt(255),random.nextInt(255),random.nextInt(255));
+	}
+	
 	public Sprite (int x, int y, Color c)
 	{
 		this.x = x;
 		this.y = y;
-		this.dx = ranSpeed.nextInt(2*MAX_SPEED) - MAX_SPEED;
-		this.dy = ranSpeed.nextInt(2*MAX_SPEED) - MAX_SPEED;
+		this.dx = random.nextInt(2*MAX_SPEED) - MAX_SPEED;
+		this.dy = random.nextInt(2*MAX_SPEED) - MAX_SPEED;
 		this.color = c;
 	}
 	
