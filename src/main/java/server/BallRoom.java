@@ -4,56 +4,61 @@ import java.awt.Color;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import persistence.HibernateUtils;
 
 public class BallRoom extends UnicastRemoteObject implements BallSession {
 
 	private final int SIZE;
-	private ArrayList<Sprite> ballz;
+	private List<Sprite> ballz;
+	private SessionFactory factory;
+	private ExecutorService threadPool;
 	
 	protected BallRoom() throws RemoteException {
 		this(400);
 	}
 	protected BallRoom(int size) throws RemoteException {
 	    super();
-	    ballz = new ArrayList<Sprite>();
-	    SIZE = size;
-	}
-
-	public void move() {
-		for(Sprite ball:ballz){
-			try {
-				ball.move(getSize());
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		factory = HibernateUtils.buildSessionFactory();
+		Session s = factory.getCurrentSession();
+		threadPool = Executors.newCachedThreadPool();
+		
+		s.beginTransaction();
+		this.ballz = s.createQuery("From Sprite").list();
+		s.getTransaction().commit();
+		
+		SIZE = size;
+		
+		for (Sprite ball: ballz) {
+			threadPool.execute(new BallMover(ball, factory, size));
 		}
-
-	}
-
-	public void start() {
-		(new Thread(){
-			public void run(){
-			    while(true) {
-			    	  try {
-				            Thread.sleep(40);  // wake up roughly 25 frames per second
-				        }
-			    	  catch ( InterruptedException exception ) {
-			    		  exception.printStackTrace();
-				      }		    	  
-			    	  move();
-			      }
-			}
-		}).start();
-	}
+		
 	
+	}
+
 	public void newSprite(int x, int y, Color c) throws RemoteException {
 		Sprite ball = new Sprite(x,y,c);
+		saveSprite(ball);
 		ballz.add(ball);
+		threadPool.execute(new BallMover(ball, factory, getSize()));
 	}
 
-	public ArrayList<Sprite> getList() throws RemoteException {
+	private void saveSprite(Sprite sprite) {
+		Session session = factory.getCurrentSession();
+		session.beginTransaction();
+		session.saveOrUpdate(sprite);
+		session.getTransaction().commit();
+	}
+	
+	public List<Sprite> getList() throws RemoteException {
 		return ballz;
 	}
 

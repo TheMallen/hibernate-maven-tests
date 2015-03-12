@@ -10,13 +10,13 @@ import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class BallPanel extends JPanel {
 
 	BallSession pit;
-	ArrayList<Sprite> balls;
+	List<Sprite> balls;
 	private Color color;
 	
 	public BallPanel(BallSession pit){
